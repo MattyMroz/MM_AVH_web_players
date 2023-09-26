@@ -4,13 +4,13 @@
 
 ## ✨ DEMOs ✨
 
-- **[plyr-video + JsSubOctopus - MKV/ASS in Chromium browsers](https://mattymroz.github.io/mm_avh_web_players/plyr-video-js-sub-oct.html)**<br>
+- **[plyr-video + JsSubOctopus - MKV/ASS in Chromium Browsers](https://mattymroz.github.io/mm_avh_web_players/plyr-video-js-sub-oct.html)**<br>
 - **[plyr-video-4k-60fps](https://mattymroz.github.io/mm_avh_web_players/plyr-video-4k-60fps.html)**<br>
 - **[plyr-audio](https://mattymroz.github.io/mm_avh_web_players/plyr-audio.html)**<br>
 - **[plyr-video-yt](https://mattymroz.github.io/mm_avh_web_players/plyr-video-yt.html)**<br>
 - **[url-video-plyr](https://mattymroz.github.io/mm_avh_web_players/URL-Video-Player/url-video-plyr.html)**<br>
 
-### 📈 Odtwarzanie plików MKV w przeglądarkach - Wyzwania i Rozwiązania
+### 📈 Odtwarzanie Plików MKV w Przeglądarkach - Wyzwania i Rozwiązania
 
 ---
 
