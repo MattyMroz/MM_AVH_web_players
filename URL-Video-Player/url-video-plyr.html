@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <meta name="keywords"
+        content="Nivash😜, Nivash, xi11a, xilla, dev, website, url, video, player, url video player, plyr">
+    <meta name="description" content="URL Video Player - XI11A Organization">
+    <link rel="icon" sizes="192x192" href="./icon_player.png">
+    <title>URL Video Player - XI11A</title>
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/XI11A/Google-Drive-Index-1@2.0.16/css/bootstrap/dark/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xi11a/Google-Drive-Index@master/css/plyr.css">
+</head>
+
+<body>
+    <div class="container">
+        <center>
+            <br>
+            <h1><a href="https://nivash.me"><b>XI11A</b></a> Online Video Player</h1>
+            <div class="input-group mb-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="">Give Me URL</span>
+                </div>
+                <input type="text" class="form-control" placeholder="Don't be Shy! Tell me.." id="vid" name="vid"
+                    autocomplete="off" maxlength="4000">
+                <button onclick="return play()" class="btn btn-success">Play!</button>
+            </div>
+            <br>
+            <div class="card text-center">
+                <video controls="controls" id="player" tabindex="0"
+                    poster="https://cdn.jsdelivr.net/gh/XI11A/Google-Drive-Index-1@2.0.10/images/poster.jpg"
+                    autoplay="autoplay" loop="loop" src="" width="100%"></video>
+            </div>
+        </center>
+    </div>
+
+    <footer class="text-muted">
+        <div class="container">
+            <p class="float-right"><a href="#">Back to top</a></p>
+            <p>Designed with <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="red"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"></path>
+                </svg> by <a href="https://nivash.me/" target="_blank">XI11A</a>, <a
+                    href="https://github.com/XI11A/URL-Video-Player">Open Source Softwares.</a></p>
+            <p>© 2021 - <a href="https://nivash.me" target="_blank">XI11A Cloud</a>, All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function play() {
+            var qry = document.getElementById("vid").value;
+            if (!qry) {
+                alert("Enter URL First!");
+            } else {
+                document.getElementById("player").src = qry;
+            }
+        }
+    </script>
+    <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+    <script>
+        const player = new Plyr('#player');
+    </script>
+</body>
+
+</html>

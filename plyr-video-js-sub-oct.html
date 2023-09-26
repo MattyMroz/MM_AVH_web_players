@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="mm_avh_web_players">
+    <meta name="keywords" content="mm_avh_web_players">
+    <meta name="author" content="Mateusz Mróz">
+
+    <title>mm_avh_web_players</title>
+
+    <link rel="shortcut icon" href="./assets/img/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+    <!-- TEST funkcjonalności MULTI_AUDIO -->
+    <!-- https://www.npmjs.com/package/@antik-web/plyr?activeTab=code -->
+    <!-- <link rel="stylesheet" href="./assets/dist/plyr.css"> -->
+    <!-- <script src="./assets/dist/plyr.js"></script> -->
+
+    <script src="./assets/js/plyr-plugin-capture.js"></script>
+    <!-- HLS do zmiany jakości wideo -->
+    <!-- https://www.youtube.com/watch?v=RGCNt4tsybA&ab_channel=CodesEasy -->
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="./assets/js/subtitles-octopus.js"></script>
+
+    <style>
+        /* @font-face {
+            font-family: 'Alegreya-Regular';
+            font-style: normal;
+            font-weight: normal;
+            src: local('Alegreya-Regular'), url('../fonts/Alegreya-Regular.ttf') format('woff');
+        } */
+
+        :root {
+            /* Kolor główny */
+            --plyr-color-main: rgb(255, 255, 255);
+            --plyr-video-background: rgb(15, 15, 15);
+            --plyr-tab-focus-color: var(--plyr-color-main);
+            /* Kolor główny - Kolor tła odznaki języka w ustawieniach */
+            --plyr-badge-background: rgba(255, 255, 255, 0.9);
+            --plyr-badge-text-color: #000000;
+            --plyr-badge-border-radius: 2px;
+            --plyr-tab-focus-color: var(--plyr-color-main);
+            --plyr-captions-background: rgba(0, 0, 0, 0.4);
+            --plyr-captions-text-color: #ffffff;
+            --plyr-control-icon-size: 18px;
+            --plyr-control-spacing: 10px;
+            --plyr-control-padding: calc(var(--plyr-control-spacing) * 0.7);
+            /* Okrągłość kolorowego tła ustawień */
+            --plyr-control-radius: 8px;
+            /* Kolor główny - Kolor kropki aktywnego przełącznika */
+            --plyr-control-toggle-checked-background: rgba(0, 0, 0, 1);
+            /* Dolny gradient panelu kontrolnego */
+            --plyr-video-controls-background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .75));
+            /* Kolor ikon */
+            --plyr-video-control-color: rgb(255, 255, 255, 0.9);
+            --plyr-video-control-color-hover: #ffffff;
+            /* Kolor główny - Kolor ikon */
+            --plyr-video-control-background-hover: rgba(0, 0, 0, .6);
+            --plyr-audio-controls-background: rgba(0, 0, 0, .6);
+            --plyr-audio-control-color: rgb(255, 255, 255, 0.9);
+            --plyr-audio-control-color-hover: #ffffff;
+            /* Kolor główny - Kolor ikon */
+            --plyr-audio-control-background-hover: rgba(0, 0, 0, .6);
+            /* Kolor tła ustawień */
+            --plyr-menu-background: rgba(0, 0, 0, 0.7);
+            /* Kolor tekstu ustawień */
+            --plyr-menu-color: #ffffff;
+            --plyr-menu-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            --plyr-menu-border-radius: 4px;
+            --plyr-menu-arrow-size: 6px;
+            /* Kolor strzeałki ustawień */
+            --plyr-menu-arrow-color: rgba(255, 255, 255, 0.75);
+            --plyr-menu-item-arrow-size: 4px;
+            --plyr-menu-border-color: #dcdfe5;
+            --plyr-menu-border-shadow-color: #ffffff;
+            --plyr-progress-loading-size: 25px;
+            --plyr-progress-loading-background: rgba(2, 5, 9, 0.6);
+            --plyr-video-progress-buffered-background: rgba(255, 255, 255, 0.25);
+            --plyr-audio-progress-buffered-background: rgba(255, 255, 255, 0.25);
+            --plyr-range-thumb-height: 13px;
+            /* Kolor kulki postępu */
+            --plyr-range-thumb-background: #ffffff;
+            --plyr-range-thumb-shadow: 0 1px 1px rgb(255, 255, 255), 0 0 0 1px rgb(255, 255, 255);
+            --plyr-range-thumb-active-shadow-width: 3px;
+            --plyr-range-track-height: 5px;
+            --plyr-range-fill-background: var(--plyr-color-main);
+            --plyr-video-range-track-background: var(--plyr-video-progress-buffered-background);
+            --plyr-video-range-thumb-active-shadow-color: rgba(255, 255, 255, 0.5);
+            --plyr-audio-range-track-background: var(--plyr-video-progress-buffered-background);
+            --plyr-audio-range-thumb-active-shadow-color: rgb(255, 255, 255);
+            /* Kolor dymku czasu */
+            --plyr-tooltip-background: rgba(255, 255, 255, 0.9);
+            --plyr-tooltip-color: #4a5464;
+            --plyr-tooltip-padding: calc(var(--plyr-control-spacing) / 2);
+            --plyr-tooltip-arrow-size: 4px;
+            --plyr-tooltip-radius: 3px;
+            --plyr-tooltip-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+            --plyr-font-family: ;
+            --plyr-font-size-base: 15px;
+            --plyr-font-size-small: 13px;
+            --plyr-font-size-large: 18px;
+            --plyr-font-size-xlarge: 21px;
+            --plyr-font-size-time: var(--plyr-font-size-small);
+            --plyr-font-size-menu: var(--plyr-font-size-small);
+            --plyr-font-size-badge: 9px;
+            --plyr-font-weight-regular: 400;
+            --plyr-font-weight-bold: 600;
+            --plyr-line-height: 1.7;
+            --plyr-font-smoothing: false;
+        }
+
+        .plyr__menu__container .plyr__control[role=menuitemradio]:before {
+            background: rgba(0, 0, 0, .2);
+
+        }
+
+        .plyr__menu__container .plyr__control[role=menuitemradio]:hover:before {
+            background: rgba(0, 0, 0, .6);
+        }
+
+        /* TESTY WYGLĄDU */
+
+        /* .plyr__menu__container .plyr__control:hover .plyr__menu__value .plyr__badge {
+            background: rgba(255, 10, 0, .8);
+            transition: none !important;
+        } */
+
+        /* .plyr__control--overlaid {
+            background: rgba(0, 0, 0, .5);
+        }
+
+        .plyr__control--overlaid:hover {
+            background: rgba(0, 0, 0, .6);
+        } */
+        /* .plyr__menu__container .plyr__control:hover {
+            background: rgba(0, 0, 0, .25);
+        } */
+
+        /* .plyr--video .plyr__control:focus-visible,
+        .plyr--video .plyr__control:hover,
+        .plyr--video .plyr__control[aria-expanded=true] {
+            background: rgba(0, 0, 0, 0);
+            filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 1));
+        }
+
+        .plyr__progress input[type=range]:hover,
+        .plyr__progress__buffer {
+            filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, .75));
+        }
+
+        .plyr__progress input[type=range],
+        .plyr__progress__buffer {
+            transition: all 0.2s linear;
+        }
+
+        .plyr__volume input[type=range]:hover,
+        .plyr__volume .plyr__volume--display {
+            filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, .75));
+        }
+
+        .plyr__volume input[type=range],
+        .plyr__volume .plyr__volume--display {
+            transition: all 0.2s linear;
+        } */
+
+        /* Własne style dla napisów */
+        /* @import url('./assets/fonts/ITC Officina Sans Std PL - Bold.ttf'); */
+
+        @font-face {
+            font-family: 'ITC Officina Sans Std PL';
+            src: url('./assets/fonts/ITC Officina Sans Std PL - Bold.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* Własne style dla napisów */
+        .plyr__caption {
+            /* background-color: rgba(15, 15, 15, .3); */
+            font-size: 32px;
+            line-height: 1.5;
+            /* font-family: 'ITC Officina Sans Std PL', sans-serif; */
+            color: white;
+        }
+
+        /* DUPERELE */
+        /* font-weight: 2000; */
+        /* Ustaw kolor tekstu na biały */
+        /* Dodaj grubsze obramowanie */
+        /* text-shadow: -2px -2px 2px rgba(15, 15, 15), 2px -2px 2px rgba(15, 15, 15), -2px 2px 2px rgba(15, 15, 15), 2px 2px 2px rgba(15, 15, 15); */
+        /* filter: drop-shadow(0 0 8px rgba(15, 15, 15)); */
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 62.5%;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(15, 15, 15);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        #player-container {
+            width: 100%;
+            max-width: 70%;
+            height: 100%;
+            display: grid;
+            place-items: center;
+
+        }
+
+        #canvas {
+            position: absolute;
+            width: 85%;
+            max-height: 100%;
+            display: none;
+            opacity: 0;
+            filter: blur(50px) drop-shadow(0 0 1rem rgba(0, 0, 0, 1)) brightness(1.2);
+            animation: fadeInCanvas 0.5s ease-out 0.5s forwards;
+
+        }
+
+        @keyframes fadeInCanvas {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 0.5;
+            }
+        }
+
+        #player {
+            width: 100%;
+            display: none;
+            opacity: 0;
+            animation: fadeInPlayer 0.4s ease-out 0.4s forwards;
+
+        }
+
+        @keyframes fadeInPlayer {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        #loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(15, 15, 15);
+
+        }
+
+        #loader::after {
+            content: "";
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 6px solid rgb(15, 15, 15);
+            border-top-color: rgba(255, 255, 255, 0.9);
+            animation: loaderSpin 1s infinite linear;
+
+        }
+
+        @keyframes loaderSpin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        @media screen and (orientation: portrait),
+        screen and (max-width: 768px) {
+            #player-container {
+                max-width: 100%;
+            }
+
+            #canvas {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="player-container">
+        <canvas id="canvas" width="1920" height="1080"></canvas>
+        <div id="loader"></div>
+        <video id="player" preload="metadata" crossorigin="anonymous" playsinline controls
+            data-poster="/mm_avh_web_players/assets/img/oshi-no-ko.gif">
+            <source
+                src="https://huggingface.co/MattyMroz/ANIME/resolve/main/%5BDemo%20Subs%5D%20Oshi%20no%20Ko%20-%2001%20%5BFB5AA606%5D.mkv?raw=true">
+            <track kind="captions" label="Polski (ASS)" srclang="pl_ass"
+                src="/mm_avh_web_players/assets/subs/[Demo Subs] Oshi no Ko - 01 [FB5AA606].ass" default>
+            <track kind="captions" label="Polski" srclang="pl"
+                src="/mm_avh_web_players/assets/subs/[Demo Subs] Oshi no Ko - 01 [FB5AA606].vtt">
+            <track kind="captions" label="Angielski (ASS)" srclang="en_ass"
+                src="/mm_avh_web_players/assets/subs/[Demo Subs] Oshi no Ko - 01 [FB5AA606].ass">
+            <track kind="captions" label="Angielski" srclang="en"
+                src="/mm_avh_web_players/assets/subs/[Demo Subs] Oshi no Ko - 01 [FB5AA606].vtt">
+        </video>
+    </div>
+
+    <script>
+        // Animacja ładowania wideo
+        const handleVideoLoading = () => {
+            const video = document.getElementById('player');
+            const loader = document.getElementById('loader');
+            const canvas = document.getElementById('canvas');
+
+            video.addEventListener('loadeddata', () => {
+                loader.style.display = 'none';
+                video.style.display = 'block';
+                canvas.style.display = 'block';
+            });
+        };
+
+        // Inicjalizacja
+        const initPlyr = () => {
+            return new Plyr('#player', {
+                //debug:true,
+                fullscreen: { iosNative: true }, // Używaj natywnego trybu pełnoekranowego w systemie iOS (wyłącza niestandardowe kontrole)
+                tooltips: { controls: true }, // Wyświetlaj podpisy przy przyciskach po najechaniu myszką
+                hideControls: true, // Nie ukrywaj kontrolek po zakończeniu interakcji
+                keyboard: { focused: false, global: true }, // Włącz obsługę klawiatury
+                seekTime: 5, // Ilość sekund do przewinięcia przy użyciu klawiszy strzałek
+                quality: { default: 1080, options: [4320, 2880, 2160, 1440, 1080, 720, 576, 480, 360, 240, 144] }, // Domyślna jakość odtwarzania
+                captions: { active: true, language: 'pl_ass', update: true }, // Włącz napisy i wybierz język
+                // loop: { active: true }, // Zapętlaj odtwarzanie
+                controls: [
+                    'play-large', // Duży przycisk odtwarzania na środku
+                    'restart', // Ponowne uruchomienie odtwarzania
+                    'rewind', // Przewiń do tyłu o określony czas (domyślnie 10 sekund)
+                    'play', // Odtwarzanie/wstrzymanie odtwarzania
+                    'fast-forward', // Przewiń do przodu o określony czas (domyślnie 10 sekund)
+                    'progress', // Pasek postępu i suwak dla odtwarzania i buforowania
+                    'current-time', // Aktualny czas odtwarzania
+                    'duration', // Pełny czas trwania mediów
+                    'mute', // Przełącz wyciszenie
+                    'volume', // Kontrola głośności
+                    'captions', // Przełącz napisy
+                    'settings', // Menu ustawień
+                    'pip', // Tryb obraz w obrazie (obecnie tylko w Safari)
+                    'airplay', // AirPlay (obecnie tylko w Safari)
+                    'download', // Pokaż przycisk do pobierania z linkiem do aktualnego źródła lub niestandardowego adresu URL określonego w opcjach
+                    'fullscreen', // Przełącz tryb pełnoekranowy
+                    'capture' // Zrzut ekranu
+                ],
+                i18n: {
+                    restart: 'Restartuj',
+                    rewind: 'Cofnij',
+                    play: 'Odtwórz',
+                    pause: 'Pauza',
+                    fastForward: 'Przewiń do przodu o {seektime}s',
+                    seek: 'Przeszukaj',
+                    seekLabel: '{currentTime} z {duration}',
+                    played: 'Odtworzone',
+                    buffered: 'Buforowane',
+                    currentTime: 'Aktualny czas',
+                    duration: 'Czas trwania',
+                    volume: 'Głośność',
+                    mute: 'Wycisz',
+                    unmute: 'Wyłącz wyciszenie',
+                    enableCaptions: 'Włącz napisy',
+                    disableCaptions: 'Wyłącz napisy',
+                    download: 'Pobierz',
+                    enterFullscreen: 'Tryb pełnoekranowy',
+                    exitFullscreen: 'Wyjdź z trybu pełnoekranowego',
+                    frameTitle: 'Odtwarzacz dla {title}',
+                    captions: 'Napisy',
+                    settings: 'Ustawienia',
+                    menuBack: 'Powrót do poprzedniego menu',
+                    speed: 'Prędkość',
+                    normal: 'Normalna',
+                    quality: 'Jakość',
+                    loop: 'Pętla',
+                    start: 'Start',
+                    end: 'Koniec',
+                    all: 'Wszystko',
+                    reset: 'Resetuj',
+                    disabled: 'Wyłączone',
+                    enabled: 'Włączone',
+                    advertisement: 'Reklama',
+                    qualityBadge: {
+                        4320: '8K',
+                        2880: '5K',
+                        2160: '4K',
+                        1440: 'QHD',
+                        1080: 'FHD',
+                        720: 'HD',
+                        576: 'SD',
+                        480: 'SD',
+                        360: 'SD'
+                    },
+                    capture: 'Zrzut ekranu'
+                }
+            });
+        };
+
+        // Dodanie podpowiedzi do przycisku ustawień
+        const addCaptureButtonTooltip = (player) => {
+            setTimeout(() => {
+                const captureButton = document.querySelector('.plyr__controls [data-plyr="capture"]');
+                if (captureButton) {
+                    const tooltip = document.createElement('span');
+                    tooltip.classList.add('plyr__tooltip');
+                    // Zmiana tekstu podpowiedzi zawartej w i18n
+                    tooltip.textContent = player.config.i18n.capture;
+                    captureButton.appendChild(tooltip);
+                }
+            });
+        };
+
+        // Kopiowanie zawartości elementu video do elementu canvas
+        const copyVideoToCanvas = (player) => {
+            const canvasEl = document.getElementById('canvas');
+            const context = canvasEl.getContext('2d');
+            const videoEl = document.getElementById('player');
+            let isCopyingActive = true;
+
+            const updateCanvas = () => {
+                if (isCopyingActive) {
+                    context.drawImage(videoEl, 0, 0, canvasEl.width, canvasEl.height);
+                }
+                window.requestAnimationFrame(updateCanvas);
+            }
+
+            requestAnimationFrame(updateCanvas);
+
+            document.addEventListener('fullscreenchange', () => {
+                isCopyingActive = !document.fullscreenElement;
+            });
+        };
+
+        // JavascriptSubtitlesOctopus renderowanie i obsługa napisów ASS
+        const initializeVideoSubtitles = (player) => {
+            const video = document.getElementById('player');
+
+            // Funkcja do inicjalizacji SubtitlesOctopus
+            const initializeSubtitlesOctopus = () => {
+                const subSrc = document.querySelector(`track[srclang="${player.captions?.language}"]`)?.getAttribute('src');
+                const options = {
+                    video: video,
+                    subUrl: subSrc,
+                    fonts: [
+                        '/mm_avh_web_players/assets/fonts/Montara_Gothic_PL.otf',
+                        '/mm_avh_web_players/assets/fonts/Sansita-Bold.otf',
+                        '/mm_avh_web_players/assets/fonts/Moonstar_pl.ttf',
+                        '/mm_avh_web_players/assets/fonts/Unicorns are Awesome - OTF.otf',
+                        '/mm_avh_web_players/assets/fonts/Shana_PL.otf',
+                        '/mm_avh_web_players/assets/fonts/too-freakin-cute-demo.regular.ttf'
+                    ],
+                    workerUrl: '/mm_avh_web_players/assets/js/subtitles-octopus-worker.js',
+                    // debug: true,
+                    targetFps: 60,
+                    prescaleFactor: 2.0,
+                };
+                window.octopusInstance = new SubtitlesOctopus(options);
+            };
+
+            // Obsługa zdarzenia gotowości odtwarzacza
+            video.addEventListener('ready', () => {
+                if (player.captions.language.endsWith('ass')) {
+                    if (SubtitlesOctopus) {
+                        initializeSubtitlesOctopus();
+                    }
+                }
+                // Obsługa włączenia napisów
+                video.addEventListener('captionsenabled', () => {
+                    if (SubtitlesOctopus || window.octopusInstance) {
+                        if (!player.captions.language.endsWith('ass')) {
+                            window.octopusInstance.freeTrack();
+                        }
+                    }
+                    if (player.captions.language.endsWith('ass')) {
+                        initializeSubtitlesOctopus();
+                    }
+                });
+
+                // Obsługa wyłączenia napisów
+                video.addEventListener('captionsdisabled', () => {
+                    if (SubtitlesOctopus || window.octopusInstance) {
+                        window.octopusInstance.freeTrack();
+                    }
+                });
+            });
+
+            // Zapobieganie błędom związanym z odświeżaniem strony
+            player.toggleCaptions(true);
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            handleVideoLoading();
+            const player = initPlyr();
+            addCaptureButtonTooltip(player);
+            copyVideoToCanvas(player);
+            initializeVideoSubtitles(player);
+        });
+    </script>
+</body>
+
+</html>
