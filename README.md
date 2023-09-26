@@ -18,7 +18,7 @@
 
 To repozytorium stanowi próbę rzetelnego zbadania problemu odtwarzania plików w formacie MKV (Matroska Video) w przeglądarkach internetowych oraz poszukiwania efektywnych rozwiązań tego wyzwania. Format MKV jest jednym z najbardziej zaawansowanych i wszechstronnych formatów wideo, oferując możliwość przechowywania różnorodnych rodzajów danych w jednym pliku, takich jak ścieżki wideo, audio, napisy i metadane.
 
-### 📦 Zawartość repozytorium
+### 📦 Zawartość Repozytorium
 
 W repozytorium znajdziesz odtwarzacz o nazwie Plyr, który został poddany eksperymentalnym modyfikacjom w celu umożliwienia odtwarzania plików w formacie MKV w przeglądarkach internetowych. Warto zaznaczyć, że nie wszystkie identyfikowane przez mnie opcje zostały w pełni zaimplementowane w tym odtwarzaczu. Obecnie odtwarzacz jest w fazie rozwoju i testów. Niemniej jednak, sens i celowość tego projektu pozostają przedmiotem dyskusji, a co za tym idzie jego kontynuowanie.
 
